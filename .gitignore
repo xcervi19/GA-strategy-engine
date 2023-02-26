@@ -1,0 +1,8 @@
+config.txt
+/__pycache__
+*.py[cod]
+/.vscode
+/.idea
+/.DS_Store
+/data
+
