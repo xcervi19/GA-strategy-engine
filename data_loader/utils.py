@@ -1,9 +1,6 @@
-from ctypes import resize
-import numpy as np
-import pandas as pd
-import nps_compiler.config as cfg
-from nps_compiler.compiler import Compiler
+import data_loader.config as cfg
 
+import pandas as pd
 
 def load_strategy_formulas():
     st_data = pd.read_csv(cfg.ST_DATA_PATH, sep=",", header=0, usecols=cfg.CSVCOLS)
@@ -31,18 +28,3 @@ def load_data():
              "Volume": "volume",
         },
     )
-
-
-def main():
-    st_formulas = load_strategy_formulas()
-    print(st_formulas[1])
-    df = load_data()
-    print(df)
-    compiler = Compiler(df)
-    result = compiler.compile(st_formulas[1], [])
-    print(result)
-    return
-
-
-if __name__ == "__main__":
-    main()

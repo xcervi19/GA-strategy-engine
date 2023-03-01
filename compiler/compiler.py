@@ -1,10 +1,6 @@
-from curses import wrapper
-from warnings import resetwarnings
-import nps_compiler.config as cfg
-from nps_compiler.utils import getGenomParts
+from compiler.utils import getGenomParts
 import talib as ta
 from talib import abstract
-import pandas as pd
 import numpy as np
 import operator
 import functools
@@ -124,6 +120,7 @@ class Compiler:
             args = parts['params'].split(',')
             col_selection = parts['colSelection'] if 'colSelection' in parts else None
             fce = func_for_exec(name, col_selection)
+
             if hasattr(self, name):
                 return fce(*args)
             if name in operator.__all__:
@@ -133,6 +130,8 @@ class Compiler:
 
             int_args = tuple(int(p) for p in args)
             if name in all_ta_list_indicators:
+                return fce(*int_args)
+            if hasattr(df, name):
                 return fce(*int_args)
             if 'window' in name:
                 fce_name = name.replace('window', '')
